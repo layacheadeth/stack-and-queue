@@ -1,0 +1,77 @@
+#include<iostream>
+using namespace std;
+struct Node{
+	int data;
+	Node *link;
+};
+Node *front=NULL;
+Node *rear=NULL;
+bool isempty(){
+	if(front==NULL&& rear==NULL){
+		return true;
+	}
+	else
+		return false;
+}
+void enqueue(int value){
+	Node *ptr=new Node();
+	ptr->data=value;
+	ptr->link=NULL;
+	if(front == NULL){
+		front = ptr;
+		rear=ptr;
+	}
+	else{
+		rear->link=ptr;
+		rear=ptr;
+	}
+}
+void dequeue(){
+	if(isempty()){
+		cout<<"Queue is empty";
+	}
+	else if(front==rear){
+		free(front);
+		front=rear=NULL;
+	}
+	else{
+		Node *ptr=front;
+		front=front->link;
+		free(ptr);
+	}
+}
+void showfront(){
+	if(isempty()){
+		cout<<"Queue is empty";
+	}
+	else{
+		cout<<front->data;
+	}
+}
+void displayQueue(){
+	if(isempty()){
+		cout<<"Queue is empty";
+	}
+	else{
+		Node *ptr=front;
+		while(ptr!=NULL){
+			cout<<ptr->data<<" ";
+			ptr=ptr->link;
+		}
+	}
+}
+int main(){
+	enqueue(2);
+	enqueue(3);
+	enqueue(4);
+	enqueue(5);
+	cout<<"before dequeue"<<endl;
+	displayQueue();
+	dequeue();
+	cout<<"\nafter dequeue"<<endl;
+	displayQueue();
+	cout<<"\nshow front"<<endl;
+	showfront();
+	
+	
+}
